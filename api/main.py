@@ -3,7 +3,6 @@ import json
 from fastapi import FastAPI, HTTPException
 from utils import run_cmd
 
-CONTAINER_NAME = "ichiran-main-1"
 
 app = FastAPI()
 
