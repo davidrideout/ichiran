@@ -1,6 +1,6 @@
 (in-package #:ichiran/conn)
 
-(defparameter *connection* '("jmdict" "postgres" "password" "pg"))
+(defparameter *connection* '("jmdict" "jm" "jm" "localhost"))
 
 (defparameter *connections* '((:old "jmdict_old" "postgres" "password" "localhost")
                               (:test "jmdict_test" "postgres" "password" "localhost")))

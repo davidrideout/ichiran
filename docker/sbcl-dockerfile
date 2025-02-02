@@ -1,4 +1,4 @@
-FROM debian:bookworm-slim
+FROM python:3.11-slim-bookworm
 
 RUN apt update && apt -y install locales
 RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment
@@ -8,10 +8,11 @@ RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
+EXPOSE 8000
 
 RUN    DEBIAN_FRONTEND=noninteractive \
        apt-get update \
-    && apt-get install -y wget postgresql-client git sbcl rlwrap
+    && apt-get install -y wget postgresql-client git sbcl rlwrap curl
 
 
 # quicklisp
@@ -29,6 +30,8 @@ COPY    ./  /root/quicklisp/local-projects/ichiran/
 WORKDIR /root/quicklisp/local-projects/ichiran
 RUN     cp docker/settings.lisp settings.lisp
 RUN     sbcl --non-interactive --eval "(ql:quickload :ichiran)"
+
+RUN pip install --no-cache-dir -r api/requirements.txt
 
 ENV PATH=/root/quicklisp/local-projects/ichiran/docker/ichiran-scripts:$PATH
 

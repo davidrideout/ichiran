@@ -5,3 +5,5 @@ settings.lisp
 ichiran-cli
 ichiran-cli.exe
 docker/pgdata/
+/.idea
+__pycache__
