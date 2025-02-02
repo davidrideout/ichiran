@@ -15,7 +15,7 @@ def ping():
 
 @app.get("/lookup")
 def lookup(query: str):
-    success, output = run_cmd(["docker", "exec", "-it", "ichiran-cli", "-f", query])
+    success, output = run_cmd(["docker", "exec", "-it", "ichiran-cli-f", query])
 
     if not success:
         raise HTTPException(status_code=400, detail="Error during lookup")
