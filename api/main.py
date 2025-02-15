@@ -16,10 +16,12 @@ def ping():
 @app.get("/lookup")
 def lookup(query: str):
     success, output = run_cmd(["ichiran-cli", "-f", query])
-    output = output.decode("utf-8")
-    output = "\n".join(line for line in output.splitlines() if not line.startswith("WARNING"))
-
+    
     if not success:
         raise HTTPException(status_code=400, detail="Error during lookup")
 
+#    output = output.decode("utf-8")
+    output = "\n".join(line for line in output.splitlines() if not line.startswith("WARNING"))
+
     return orjson.loads(output)
+
