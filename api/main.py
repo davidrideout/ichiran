@@ -1,9 +1,8 @@
-from datetime import datetime
 import json
+from datetime import datetime
+import orjson
 from fastapi import FastAPI, HTTPException
 from utils import run_cmd
-
-CONTAINER_NAME = "ichiran-main-1"
 
 app = FastAPI()
 
@@ -16,8 +15,10 @@ def ping():
 @app.get("/lookup")
 def lookup(query: str):
     success, output = run_cmd(["docker", "exec", "-it", "ichiran-cli-f", query])
+    output = output.decode("utf-8")
+    output = "\n".join(line for line in output.splitlines() if not line.startswith("WARNING"))
 
     if not success:
         raise HTTPException(status_code=400, detail="Error during lookup")
 
-    return json.loads(output)
+    return orjson.loads(output)
