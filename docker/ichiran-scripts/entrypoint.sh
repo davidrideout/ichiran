@@ -10,4 +10,4 @@ echo "Postgres is ready, starting main container init."
 init-all;
 
 cd api
-uvicorn main:app
+uvicorn --host 0.0.0.0 main:app
